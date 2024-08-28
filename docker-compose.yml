@@ -1,0 +1,34 @@
+services:
+  bot:
+    build: .
+    command: python3 bot.py
+    # volumes:
+    #   - .:/app
+    environment:
+      - DISCORD_TOKEN
+      - GUILD_ID
+      - DISCORD_ENV
+      - CONNECTIONS_MYSQL_HOST=mysql
+      - CONNECTIONS_MYSQL_USER=root
+      - CONNECTIONS_MYSQL_PASS=${MYSQL_PASS}
+      - STRANDS_MYSQL_HOST=mysql
+      - STRANDS_MYSQL_USER=root
+      - STRANDS_MYSQL_PASS=${MYSQL_PASS}
+      - WORDLE_MYSQL_HOST=mysql
+      - WORDLE_MYSQL_USER=root
+      - WORDLE_MYSQL_PASS=${MYSQL_PASS}
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
+      MYSQL_DATABASE: foo
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
