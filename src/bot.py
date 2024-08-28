@@ -22,6 +22,7 @@ activity = discord.Game(name="?help")
 
 # set up the bot
 bot = commands.Bot(command_prefix='?', intents=intents, activity=activity, help_command=None)
+
 bot.guild_id = int(guild_id) if guild_id.isnumeric() else -1
 bot.utils = BotUtilities(client, bot)
 bot.help_menu = HelpMenuHandler()
